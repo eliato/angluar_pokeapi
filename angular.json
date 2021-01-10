@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "angularapi"
+  "defaultProject": "angularapi",
+  "cli": {
+    "analytics": false
+  }
 }
