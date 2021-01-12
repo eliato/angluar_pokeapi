@@ -14,10 +14,16 @@
 
     <mat-card-content>
         <mat-chip-list>
-            <mat-chip color="primary">Type: {{pokemonType}}</mat-chip>
+
+            <mat-chip color="primary" *ngFor="let item of pokemonType">
+                Type: {{ item.type.name }}
+            </mat-chip>
+
             <mat-chip color="primary">Height: {{pokemon.height}}</mat-chip>
             <mat-chip color="primary">Weight: {{pokemon.weight}}</mat-chip>
         </mat-chip-list>
+
     </mat-card-content>
+
 
 </mat-card>

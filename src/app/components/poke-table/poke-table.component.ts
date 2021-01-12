@@ -29,7 +29,7 @@ export class PokeTableComponent implements OnInit {
   getPokemons() {
     let pokemonData;
     
-    for (let i = 1; i <= 150; i++) {
+    for (let i = 1; i <= 250; i++) {
       this.pokemonService.getPokemons(i).subscribe(
         res => {
           pokemonData = {
@@ -65,7 +65,7 @@ export class PokeTableComponent implements OnInit {
  // Obtiene elemento seleccionado
   // tslint:disable-next-line: typedef
   getRow(row){
-    // console.log(row);
+    console.log(row);
     this.router.navigateByUrl(`/pokeDetail/${row.position}`)
   }
 

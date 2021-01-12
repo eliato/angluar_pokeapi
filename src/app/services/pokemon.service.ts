@@ -11,9 +11,14 @@ export class PokemonService {
 
   constructor(private http: HttpClient) { }
 
-  //Obtiene pokemon
+  // Obtiene pokemon
+  // tslint:disable-next-line: typedef
   getPokemons(index){
     return this.http.get<any>(`${this.baseUrl}/pokemon/${index}`);
   }
   
+  // tslint:disable-next-line: typedef
+  getevolutions(indexx){
+    return this.http.get<any>(`${this.baseUrl}/evolution-chain/${indexx}`);
+  }
 }
