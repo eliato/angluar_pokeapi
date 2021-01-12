@@ -14,30 +14,31 @@ export class PokeDetailComponent implements OnInit {
   pokemonType = [];
 
   constructor(private activatedRouter: ActivatedRoute,
-    private pokemonService: PokemonService) {
-    //obtiene parametro de la url
+              private pokemonService: PokemonService) {
+    // obtiene parametro de la url
     this.activatedRouter.params.subscribe(
       params => {
-        this.getPokemon(params['id']);
+        this.getPokemon(params.id);
       }
-    )
+    );
   }
 
   ngOnInit(): void {
   }
 
+  // tslint:disable-next-line: typedef
   getPokemon(id) {
     this.pokemonService.getPokemons(id).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         this.pokemon = res;
-        this.pokemonImg = this.pokemon.sprites.front_default;
+        this.pokemonImg = this.pokemon.sprites.other.dream_world.front_default;
         this.pokemonType = res.types[0].type.name;
       },
       err => {
         console.log(err);
       }
-    )
+    );
   }
 
 }

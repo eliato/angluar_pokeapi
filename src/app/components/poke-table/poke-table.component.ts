@@ -3,7 +3,6 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { ADDRGETNETWORKPARAMS } from 'dns';
 
 @Component({
   selector: 'app-poke-table',
@@ -11,21 +10,22 @@ import { ADDRGETNETWORKPARAMS } from 'dns';
   styleUrls: ['./poke-table.component.scss']
 })
 export class PokeTableComponent implements OnInit {
-  //Columnas que se muestran de la tabla de angular material
-  displayedColumns: string[] = ['position', 'image', 'name'];
+  // Columnas que se muestran de la tabla de angular material
+  displayedColumns: string[] = ['position', 'image', 'name', 'type', 'abilities'];
   data: any[] = [];
   dataSource = new MatTableDataSource<any>(this.data);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   pokemons = [];
-
+  sortOrder = 1; 
   constructor(private pokemonService: PokemonService, private router: Router) { }
 
   ngOnInit(): void {
     this.getPokemons();
   }
 
+  // tslint:disable-next-line: typedef
   getPokemons() {
     let pokemonData;
     
@@ -34,11 +34,12 @@ export class PokeTableComponent implements OnInit {
         res => {
           pokemonData = {
             position: i,
-            image: res.sprites.front_default,
+            image: res.sprites.other.dream_world.front_default,
             name: res.name,
-            type: res.types[0].name
+            type: res.types[0].type.name,
+            abilities: res.abilities[0].ability.name
           };
-          //ponemos la data que viene del servicio en un arreglo
+          // ponemos la data que viene del servicio en un arreglo
           this.data.push(pokemonData);
           this.dataSource = new MatTableDataSource<any>(this.data);
           this.dataSource.paginator = this.paginator;
@@ -50,7 +51,8 @@ export class PokeTableComponent implements OnInit {
     }
   }
 
-  //Filtro para el paginador
+  // Filtro para el paginador
+  // tslint:disable-next-line: typedef
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -60,10 +62,12 @@ export class PokeTableComponent implements OnInit {
     }
   }
 
- //Obtiene elemento seleccionado
+ // Obtiene elemento seleccionado
+  // tslint:disable-next-line: typedef
   getRow(row){
-    //console.log(row);
+    // console.log(row);
     this.router.navigateByUrl(`/pokeDetail/${row.position}`)
   }
 
+  
 }
